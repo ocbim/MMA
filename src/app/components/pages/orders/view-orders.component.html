@@ -1,0 +1,49 @@
+<section id="orders">
+  <div class="container col-md-6">
+
+    <div class="card shadow-sm mt-3" *ngFor="let item of orders; trackBy:trackBy">
+
+      <div class="card-body">
+
+        <div class="d-flex">
+          <span class="mr-auto"><img src="/assets/masmovil.svg"></span>
+          <a class="btn btn-outline-danger btn-sm" routerLink='#'>
+            <i class="fas fa-trash"></i>
+          </a>
+          <a class="btn btn-outline-info btn-sm ml-2" routerLink='#'>
+            <i class="fas fa-edit"></i>
+          </a>
+        </div>
+
+        <span class="card-title text-uppercase h5 text-primary">
+          {{item.codOrder}}
+        </span>
+
+        <div class="d-flex flex-row-reverse text-muted">
+          <span class="ml-2">
+            {{item.meter}} Mtrs
+          </span>
+          <span>
+            {{item.typeInstalation}}
+          </span>
+        </div>
+
+        <span class="border d-flex m-2 p-1 text-justify">
+          {{item.description}}
+        </span>
+
+        <div class="d-flex">
+          <span class="font-weight-lighter mr-auto">
+            {{item.dateInstalation}}
+          </span>
+          <span class="badge badge-pill badge-success shadow-sm">
+            Puntos <span class="badge badge-light">{{item.point}}</span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</section>
