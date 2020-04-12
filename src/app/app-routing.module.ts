@@ -14,9 +14,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
-  { path: 'orders/neworders', component: NewOrdersComponent },
-  { path: 'orders/editorders/:id', component: EditOrdersComponent },
-  { path: 'orders/vieworders', component: ViewOrdersComponent },
+  { path: 'orders/new', component: NewOrdersComponent },
+  { path: 'orders/edit/:id', component: EditOrdersComponent },
+  { path: 'orders/view', component: ViewOrdersComponent },
   { path: '**', component: Page404Component },
 ];
 

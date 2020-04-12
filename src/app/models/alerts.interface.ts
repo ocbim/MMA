@@ -1,5 +1,4 @@
-export interface Alerts {
+export interface AlertsInterface {
   type: string,
-  message: string,
-  isActive: boolean
+  message: string
 }

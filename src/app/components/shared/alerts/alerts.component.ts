@@ -1,39 +1,42 @@
-import { timer } from 'rxjs';
-
-import { Component, OnInit} from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { isNullOrUndefined } from 'util';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AlertsService } from 'src/app/services/alerts.service';
-import { Alerts } from "src/app/models/alerts.interface";
+import { AlertsEnum } from 'src/app/models/alerts.enum';
+import { AlertsInterface } from 'src/app/models/alerts.interface';
+import { interval, timer } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
-  styleUrls: ['./alerts.component.scss']
+  styleUrls: ['./alerts.component.scss'],
 })
-export class AlertsComponent implements OnInit{
-
-  menssage: Alerts[] = [];
-  num = timer(10000);
-  lista = [
-    {type: 'alert-danger ', message: 'HOLa mundo danger', isActive: true},
-    {type: 'alert-info ', message: 'HOLa mundo info', isActive: true},
-    {type: 'alert-warning ', message: 'HOLa mundo warning', isActive: true}
-  ]
-  constructor(public alertService: AlertsService) { }
+export class AlertsComponent implements OnInit {
+  alerts: AlertsInterface[] = [];
+  alerts$;
+  time = timer(5000)
+  constructor(private alertsService: AlertsService) {}
 
   ngOnInit(): void {
-    this.alertService.alertMsg$.subscribe((data) =>{
-      this.menssage.push(data);
-
+    this.alerts$ = this.alertsService.alert$.subscribe({
+      next: (res) => {
+        if (!isNullOrUndefined(res)) {
+          this.alerts.push(res);
+          this.autoDeleteAlerts()
+        }
+      },
     });
 
-    this.lista.map((item)=>{
-      this.alertService.postMsg(item);
-    });
   }
 
-  trackBy(index, item){
-    return index;
+  autoDeleteAlerts(){
+    this.time.subscribe({
+      next:(res)=>{this.alerts.shift()}
+    })
   }
 
-
+  ngOnDestroy(): void {
+    this.alerts$.unsubscribe();
+  }
 }

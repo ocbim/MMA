@@ -1,23 +1,16 @@
-import { Observable, interval, Subject } from 'rxjs';
-import { Injectable, EventEmitter } from '@angular/core';
-
-
-import { Alerts } from 'src/app/models/alerts.interface';
-
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { AlertsInterface } from 'src/app/models/alerts.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AlertsService {
+  alert$ = new Subject<AlertsInterface>();
 
-  alertMsg$ = new Subject<Alerts>();
+  constructor() {}
 
-  constructor() { }
-
-  postMsg(msg: Alerts) {
-    this.alertMsg$.next(msg);
+  postAlert(type, menssage) {
+    this.alert$.next({ type: type, message: menssage });
   }
-
-
 }

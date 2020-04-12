@@ -1,1 +1,41 @@
-<p>login works!</p>
+<div class="container col-sm-6 col-md-6 col-lg-6 mt-3 mb-3">
+  <div class="card shadow">
+
+    <!-- <div class="card-header text-center">Nueva Orden</div> -->
+
+    <div class="card-body">
+
+      <div class="form-group text-center">
+        <i class="fas fa-user-lock fa-5x text-danger"></i>
+      </div>
+
+      <!-- # User Name-->
+      <div class="form-group">
+        <input
+          type="text"
+          name="username"
+          class="form-control"
+          placeholder="Nombre de usuario"
+          [(ngModel)]="user.username"
+          required
+          autofocus
+        />
+      </div>
+
+      <!-- # User Password-->
+      <div class="form-group">
+        <input
+        type="password"
+        name="password"
+        class="form-control"
+        placeholder="Password"
+        [(ngModel)]="user.password"
+      />
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-outline-primary btn-block" (click)='logIn()'>LogIn</button>
+      </div>
+    </div>
+  </div>
+</div>

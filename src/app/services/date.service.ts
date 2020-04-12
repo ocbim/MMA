@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, EventEmitter } from '@angular/core';
+import { Injectable, OnDestroy} from '@angular/core';
 
 import * as moment from "moment";
 import { Observable, Subject } from "rxjs";
@@ -16,7 +16,7 @@ export class DateService {
   fechaISO: string;
   fechaISOOneDay: string;
 
-  constructor() {
+  constructor( ) {
     this.DevolucionFecha$().subscribe((data) => {
       this.fecha = data;
       this.setFechaFormat()

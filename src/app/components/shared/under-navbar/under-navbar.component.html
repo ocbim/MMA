@@ -1,7 +1,8 @@
-<div class="bg-white nav d-flex">
-  <span (ngModelChange)="date.fecha">{{date.fechaFormat}}</span>
-  <a (click)='clickBackButton()'><i class="fas fa-angle-left fa-2x text-primary"></i></a>
-  <a (click)='clickNextButton()' ><i class="fas fa-angle-right fa-2x ml-1 text-primary"></i></a>
+<div class="alert rounded-0 bg-white d-flex">
+
+  <span class="mr-auto" (ngModelChange)="date.fecha">{{date.fechaFormat}}</span>
+  <a (click)='clickBackButton()'><i class="fas fa-angle-left fa-lg mr-2 text-primary"></i></a>
+  <a (click)='clickNextButton()'><i class="fas fa-angle-right fa-lg ml-4 text-primary"></i></a>
 
 
 </div>

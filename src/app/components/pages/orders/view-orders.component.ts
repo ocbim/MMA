@@ -1,33 +1,39 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataApiService } from 'src/app/services/data-api.service';
 import * as moment from 'moment';
-import { OrderInterfaces } from "../../../models/order.interface";
+import { OrderInterfaces } from 'src/app/models/order.interface';
 import { DateService } from 'src/app/services/date.service';
-import { error } from '@angular/compiler/src/util';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-orders',
   templateUrl: './view-orders.component.html',
-  styleUrls: ['./view-orders.component.scss']
+  styleUrls: ['./view-orders.component.scss'],
 })
-export class ViewOrdersComponent implements OnInit {
-
+export class ViewOrdersComponent implements OnInit, OnDestroy {
   orders: OrderInterfaces;
+  subscritionDevolucionFecha;
+  subscritionDevolucionDatos;
+  totalPoints = 0.0;
 
-  constructor(private dataApi: DataApiService, private dateService: DateService) { }
+  constructor(
+    private dataApi: DataApiService,
+    private dateService: DateService
+  ) {}
 
   ngOnInit(): void {
-
-    this.getApiData()
-
+    this.subscritionDevolucionDatos = this.getApiData();
     //  Nos suscribimos al servicio para escuchar lso cambios de fechas.
-    this.dateService.DevolucionFecha$().subscribe((data)=>{
-      data;
-      this.getApiData();  //  Ejecutamos Para tener los datos
-      console.log('ejecuta getApiData');
+    this.subscritionDevolucionFecha = this.getDevolucionFecha();
+  }
 
-    })
+  getDevolucionFecha() {
+    return this.dateService.DevolucionFecha$().subscribe((date) => {
+      this.clear(); // Limpiamos las variables y ponemos a cero
+      this.subscritionDevolucionDatos = this.getApiData(); //  Ejecutamos Para tener los datos
+      console.log('ejecuta getApiData');
+    });
   }
 
   /**Aquiere los datos usando el servicio DataApiService
@@ -35,15 +41,37 @@ export class ViewOrdersComponent implements OnInit {
    * y devuelve un json
    */
   getApiData() {
-    this.dataApi.getAllOrders().subscribe({
-      next: (data)=>{ this.orders = data},
-      error: (err)=>{ console.log(err) },
-      complete:()=>{ console.log('obtencion de datos done') }
+    return this.dataApi.getAllOrders().subscribe({
+      next: (data) => {
+        this.orders = data;
+        data.map((res) => (this.totalPoints += res.point)); // suma los puntos y los guarda en totalPoinst
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('obtencion de datos done');
+      },
     });
   }
 
-  trackBy(index, item) {
+  deleteApiData(id) {
+    this.dataApi.deleteOrder(id).subscribe((data) => {
+      this.totalPoints=0
+      this.getApiData();
+    });
+  }
+
+  trackBy(index, item: OrderInterfaces) {
     return index;
   }
 
+  clear() {
+    this.totalPoints = 0;
+  }
+
+  ngOnDestroy() {
+    this.subscritionDevolucionFecha.unsubscribe();
+    this.subscritionDevolucionDatos.unsubscribe();
+  }
 }

@@ -1,49 +1,84 @@
+<app-under-navbar></app-under-navbar>
+
 <section id="orders">
-  <div class="container col-md-6">
-
-    <div class="card shadow-sm mt-3" *ngFor="let item of orders; trackBy:trackBy">
-
+  <div class="container col-md-8 col-lg-8 pb-4">
+    <div
+      class="card shadow-sm mt-3"
+      *ngFor="let item of orders; trackBy: trackBy"
+    >
       <div class="card-body">
-
         <div class="d-flex">
-          <span class="mr-auto"><img src="/assets/masmovil.svg"></span>
-          <a class="btn btn-outline-danger btn-sm" routerLink='#'>
+          <span class="mr-auto"><img src="/assets/masmovil.svg" /></span>
+
+          <span
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteApiData(item.id)"
+          >
             <i class="fas fa-trash"></i>
-          </a>
-          <a class="btn btn-outline-info btn-sm ml-2" routerLink='#'>
+          </span>
+
+          <a
+            class="btn btn-outline-info btn-sm ml-2"
+            routerLink="/orders/edit/{{ item.id }}"
+          >
             <i class="fas fa-edit"></i>
           </a>
         </div>
 
-        <span class="card-title text-uppercase h5 text-primary">
-          {{item.codOrder}}
+        <span class="card-title text-uppercase h5 text-dark">
+          {{ item.codOrder }}
         </span>
 
         <div class="d-flex flex-row-reverse text-muted">
-          <span class="ml-2">
-            {{item.meter}} Mtrs
+          <span
+            class="ml-2"
+            [class.d-none]="
+              item.typeInstalation == 'MM_AVERIA' ||
+              item.typeInstalation == 'MM_NEBA' ||
+              item.typeInstalation == 'MM_AVERIA_FESTIVO' ||
+              item.typeInstalation == 'MM_REUTILIZADA'
+                ? true
+                : false
+            "
+          >
+            {{ item.meter }} Mtrs
           </span>
           <span>
-            {{item.typeInstalation}}
+            {{ item.typeInstalation }}
           </span>
         </div>
 
         <span class="border d-flex m-2 p-1 text-justify">
-          {{item.description}}
+          {{ item.description }}
         </span>
 
         <div class="d-flex">
-          <span class="font-weight-lighter mr-auto">
-            {{item.dateInstalation}}
-          </span>
-          <span class="badge badge-pill badge-success shadow-sm">
-            Puntos <span class="badge badge-light">{{item.point}}</span>
+          <small class="font-weight-lighter mr-auto">
+            {{ item.dateInstalation | date: "longDate" | uppercase }}
+          </small>
+          <span
+            class="badge badge-pill badge-success shadow-sm"
+            [class]="item.point > 0 ? 'badge-success' : 'badge-danger'"
+          >
+            Puntos <span class="badge badge-light">{{ item.point }}</span>
           </span>
         </div>
       </div>
-
     </div>
 
-
+    <div *ngIf="totalPoints">
+      <div
+        class="d-block mt-3 p-3"
+        [class]="
+          !orders
+            ? 'd-none'
+            : totalPoints > 0
+            ? 'badge badge-success'
+            : 'badge badge-danger'
+        "
+      >
+        Today Total Points : {{ totalPoints | number }}
+      </div>
+    </div>
   </div>
 </section>
