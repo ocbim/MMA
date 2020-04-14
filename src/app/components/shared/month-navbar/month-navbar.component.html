@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs justify-content-center ">
+  <li class="nav-item" *ngFor="let item of dateStartForMonth">
+    <a class="nav-link" (click) = 'startEndDate(item)'>{{ item | date:'MMM' }}</a>
+  </li>
+</ul>

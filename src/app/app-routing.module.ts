@@ -10,6 +10,7 @@ import { ViewOrdersComponent } from './components/pages/orders/view-orders.compo
 import { Page404Component } from './components/pages/page404/page404.component';
 
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { MonthviewComponent } from './components/pages/orders/monthview.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
     component: ViewOrdersComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'orders/monthview', component: MonthviewComponent },
   { path: '**', component: Page404Component },
 ];
 

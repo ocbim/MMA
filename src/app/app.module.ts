@@ -20,6 +20,8 @@ import { DateService } from './services/date.service';
 import { FormsModule } from '@angular/forms';
 import { AlertsComponent } from './components/shared/alerts/alerts.component';
 import { AlertsService } from './services/alerts.service';
+import { MonthviewComponent } from './components/pages/orders/monthview.component';
+import { MonthNavbarComponent } from './components/shared/month-navbar/month-navbar.component';
 
 const myDeclarations = [
   AppComponent,
@@ -33,12 +35,14 @@ const myDeclarations = [
   ViewOrdersComponent,
   UnderNavbarComponent,
   AlertsComponent,
+  MonthviewComponent,
+  MonthNavbarComponent,
 ];
 const myImports = [
   BrowserModule,
   AppRoutingModule,
   HttpClientModule,
-  FormsModule
+  FormsModule,
 ];
 const myProviders = [
   AuthService,
@@ -46,7 +50,7 @@ const myProviders = [
   DateService,
   AlertsService,
   HttpClientModule,
-  HttpClient
+  HttpClient,
 ];
 
 @NgModule({

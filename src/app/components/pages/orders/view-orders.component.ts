@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataApiService } from 'src/app/services/data-api.service';
 import * as moment from 'moment';
@@ -16,7 +16,11 @@ export class ViewOrdersComponent implements OnInit, OnDestroy {
   subscritionDevolucionFecha;
   subscritionDevolucionDatos;
   totalPoints = 0.0;
-
+  /**
+   *
+   * @param dataApi Servicio para hacer consultas de los datos.
+   * @param dateService Servicio para Consultar y manimular la fechas de las consultas.
+   */
   constructor(
     private dataApi: DataApiService,
     private dateService: DateService
@@ -27,19 +31,23 @@ export class ViewOrdersComponent implements OnInit, OnDestroy {
     //  Nos suscribimos al servicio para escuchar lso cambios de fechas.
     this.subscritionDevolucionFecha = this.getDevolucionFecha();
   }
-
-  getDevolucionFecha() {
+  /**
+   * @description Nos suscribimos al cambio de fechas y cuando ocurra un evento
+   * llamamos tambien a la subscripcion de los datos para actualizarlos.
+   */
+  getDevolucionFecha(): Subscription {
     return this.dateService.DevolucionFecha$().subscribe((date) => {
       this.clear(); // Limpiamos las variables y ponemos a cero
       this.subscritionDevolucionDatos = this.getApiData(); //  Ejecutamos Para tener los datos
     });
   }
 
-  /**Aquiere los datos usando el servicio DataApiService
+  /**
+   * @description Aquiere los datos usando el servicio DataApiService
    * nos suscribimos a una funcion en DATA
    * y devuelve un json
    */
-  getApiData() {
+  getApiData(): Subscription {
     return this.dataApi.getAllOrders().subscribe({
       next: (data) => {
         this.orders = data;
@@ -53,23 +61,32 @@ export class ViewOrdersComponent implements OnInit, OnDestroy {
       },
     });
   }
-
-  deleteApiData(id) {
+  /**
+   * @description Eliminamos una orden usando el dataApiServices.
+   * @param id Id de la orden a eliminar
+   */
+  deleteApiData(id): void {
     this.dataApi.deleteOrder(id).subscribe((data) => {
-      this.totalPoints=0
+      this.totalPoints = 0;
       this.getApiData();
     });
   }
-
-  trackBy(index, item: OrderInterfaces) {
+  /**
+   * @description Hace indexa los item del for para saber si hay cambios.
+   */
+  trackBy(index, item: OrderInterfaces): number {
     return index;
   }
-
-  clear() {
+  /**
+   * @description Hace una limpiesa del total de puntos cuando
+   */
+  clear(): void {
     this.totalPoints = 0;
   }
-
-  ngOnDestroy() {
+  /**
+   * @description Desuscribre las subscriciones que tenemos activas cuando cuando el ciclo de vida se destruye
+   */
+  ngOnDestroy(): void {
     this.subscritionDevolucionFecha.unsubscribe();
     this.subscritionDevolucionDatos.unsubscribe();
   }

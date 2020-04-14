@@ -8,17 +8,24 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   title = 'MMA';
-  public hideElement: boolean = false;
-/**
- * Comprobamos la url para hacer que aparesca la opcion de Under-Navbars
- */
+  public hideUnderNav: boolean = false;
+  public hidenMonthNav: boolean = false;
+  /**
+   * Comprobamos la url para hacer que aparesca la opcion de Under-Navbars
+   */
   constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        //  Comprueba que la url es '/orders/view' y muestra el UnderNav
         if (event.url.match('/orders/view')) {
-          this.hideElement = true;
+          this.hideUnderNav = true;
         } else {
-          this.hideElement = false;
+          this.hideUnderNav = false;
+        }
+        if (event.url.match('/orders/monthview')) {
+          this.hidenMonthNav = true;
+        } else {
+          this.hidenMonthNav = false;
         }
       }
     });

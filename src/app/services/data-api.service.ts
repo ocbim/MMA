@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders,HttpClientModule } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpClientModule,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
@@ -24,7 +28,16 @@ export class DataApiService {
     Authorization: this.authService.getToken(),
   });
 
-  getAllOrders() {
+  getOrdersMonth(startDate, endDate): Observable<OrderInterfaces> {
+    let user_id =
+      this.authService.getCurrentUser().id == null
+        ? ''
+        : this.authService.getCurrentUser();
+    let urlApiDate = `http://localhost:3000/api/orders?filter={ "user_id": "${user_id}" ,"where" : {"dateInstalation": { "between": ["${startDate}", "${endDate}"] } } }`;
+    return this.http.get<OrderInterfaces>(urlApiDate).pipe(map((data) => data));
+  }
+
+  getAllOrders(): Observable<any> {
     /**
      * http://localhost:3000/api/orders
      * Devuelve un Observable de una peticion GET de todas las orden
@@ -37,7 +50,7 @@ export class DataApiService {
     return this.http.get<OrderInterfaces>(urlApiDate).pipe(map((data) => data));
   }
 
-  getOrderById(orderId: string) {
+  getOrderById(orderId: string): Observable<any> {
     /**
      * http://localhost:3000/api/orders/5
      * Devuelve un Observable de una peticion GET con una sola orde buscada por la ID
@@ -46,7 +59,7 @@ export class DataApiService {
     return (this.order$ = this.http.get(urlApi));
   }
 
-  saveOrder(order: OrderInterfaces) {
+  saveOrder(order: OrderInterfaces): Observable<any> {
     /**
      * TODO: Obtener token
      * TODO: not null
@@ -59,7 +72,7 @@ export class DataApiService {
       .pipe(map((data) => data));
   }
 
-  updatedOrder(order: OrderInterfaces) {
+  updatedOrder(order: OrderInterfaces): Observable<any> {
     /**
      * TODO: Obtener token
      * TODO: not null
@@ -72,7 +85,7 @@ export class DataApiService {
       .pipe(map((data) => data));
   }
 
-  deleteOrder(id: string) {
+  deleteOrder(id: string): Observable<any> {
     /**
      * TODO: Obtener token
      * TODO: not null

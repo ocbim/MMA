@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class DateService {
   fecha$ = new Subject<object>();
+  fechaMonth = new Subject<object>();
   fecha;
   fechaFormat: string;
   fechaISO: string;

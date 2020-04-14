@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <div class="col">
+
+    <table class="table table-responsive-sm table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Cod</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Puntos</th>
+          <th scope="col">Instalacion</th>
+        </tr>
+
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let index, let item of orders; trackBy:trackById()">
+          <th scope="col">{{item.codOrder}}</th>
+          <th scope="col">{{item.typeInstalation}}</th>
+          <th scope="col">{{item.point}}</th>
+          <th scope="col">{{item.dateInstalation | date: 'dd/MM/yyyy'}}</th>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
