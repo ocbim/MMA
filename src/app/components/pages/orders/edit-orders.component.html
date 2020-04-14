@@ -10,7 +10,7 @@
 
         <!-- # Code for orden-->
         <div class="form-group">
-          <input type="text"  name="codOrden" class="form-control text-uppercase" placeholder="Numero de Orden" [(ngModel)]="orders.codOrder" required autofocus>
+          <input type="text"  name="codOrden" class="form-control text-uppercase" placeholder="Numero de Orden" [(ngModel)]="orders.codOrder" readonly>
         </div>
 
         <!-- Type Instalation-->
@@ -64,8 +64,9 @@
           <input type="number" name="point" class="form-control" placeholder="Puntos" [(ngModel)]="orders.point" readonly>
         </div>
 
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" (click)='summit()' >Save</button>
+        <div class="form-group d-flex">
+          <button class="btn btn-outline-info ml-auto" (click)='summit()'> Save </button>
+          <button class="btn btn-outline-danger ml-3" (click)='exit()'> Exit </button>
         </div>
 
       </form>

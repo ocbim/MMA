@@ -4,13 +4,11 @@ import { UserInterface } from 'src/app/models/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { AlertsEnum } from 'src/app/models/alerts.enum';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers: [AuthService]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   user: UserInterface = {};
@@ -24,12 +22,13 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   logIn() {
+    this.authService.checkIsLogged();
     if (this.user.username != null && this.user.password != null) {
       this.authService.loginUser(this.user).subscribe({
         next: (res) => {
           this.authService.setUser(res.user);
           this.authService.setToken(res.id);
-          this.authService.userLogin$.next(this.authService.getCurrentUser());
+          this.authService.checkIsLogged()
         },
         error: (err) => {
           this.alertsService.postAlert(

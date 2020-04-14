@@ -104,4 +104,8 @@ export class EditOrdersComponent implements OnInit {
     this.orders.updated_at = moment().toISOString();
     this.postApiData(this.orders);
   }
+
+  exit(){
+    this.router.navigate(['/orders/view']);
+  }
 }

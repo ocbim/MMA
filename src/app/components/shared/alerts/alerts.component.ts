@@ -30,7 +30,7 @@ export class AlertsComponent implements OnInit {
 
   }
 
-  autoDeleteAlerts(){
+  autoDeleteAlerts(): void {
     this.time.subscribe({
       next:(res)=>{this.alerts.shift()}
     })

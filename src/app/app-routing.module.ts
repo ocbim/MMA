@@ -9,14 +9,28 @@ import { EditOrdersComponent } from './components/pages/orders/edit-orders.compo
 import { ViewOrdersComponent } from './components/pages/orders/view-orders.component';
 import { Page404Component } from './components/pages/page404/page404.component';
 
+import { AuthGuard } from 'src/app/guards/auth.guard';
+
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
-  { path: 'orders/new', component: NewOrdersComponent },
-  { path: 'orders/edit/:id', component: EditOrdersComponent },
-  { path: 'orders/view', component: ViewOrdersComponent },
+  {
+    path: 'orders/new',
+    component: NewOrdersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'orders/edit/:id',
+    component: EditOrdersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'orders/view',
+    component: ViewOrdersComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', component: Page404Component },
 ];
 

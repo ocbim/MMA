@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,22 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  public app_name = 'MMA'.toLocaleUpperCase();
-  user;
-  constructor(private authService: AuthService, private router: Router) {}
+  public app_name = 'MMA';
+
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    if (this.authService.getCurrentUser()) {
-      this.user = this.authService.getCurrentUser();
-    }
-    this.authService.userLogin$.subscribe((res) => (this.user = res));
+    this.authService.checkIsLogged();
   }
 
-  logOut() {
-    this.authService.logoutUser().subscribe((res) => {
-      res;
-      this.authService.userLogin$.next(undefined);
-      this.router.navigate(['/']);
+  logOut(): void {
+    this.authService.logoutUser().subscribe({
+      complete: () => {
+        this.authService.checkIsLogged()
+        this.router.navigate(['/']);
+      },
     });
   }
 }

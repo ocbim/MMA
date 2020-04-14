@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
@@ -10,23 +10,26 @@ import { UserInterface } from '../models/user.interface';
   providedIn: 'root',
 })
 export class AuthService {
+  islogged: boolean = false;
 
-  userLogin$= new Subject<any>()
-
-  constructor(public http: HttpClient) {  }
+  constructor(private http: HttpClient) {}
 
   headers: HttpHeaders = new HttpHeaders({
     'Conten-Type': 'application/json',
   });
 
-  registerUser(user : UserInterface) {
+  checkIsLogged() {
+    if (this.getCurrentUser() !== null) {
+      this.islogged = true;
+    } else {
+      this.islogged = false;
+    }
+  }
+
+  registerUser(user: UserInterface): Observable<any> {
     let urlApi = 'http://localhost:3000/api/Users';
     return this.http
-      .post<UserInterface>(
-        urlApi,
-        user,
-        { headers: this.headers }
-      )
+      .post<UserInterface>(urlApi, user, { headers: this.headers })
       .pipe(map((data) => data));
   }
 
@@ -41,12 +44,17 @@ export class AuthService {
     let user_string = JSON.stringify(user);
     localStorage.setItem('currentUser', user_string);
   }
-
+  /**
+   * @returns void
+   * @param token resive un token id que se guarda en una variablelocal
+   */
   setToken(token): void {
     localStorage.setItem('accessToken', token);
   }
-
-  getToken() {
+  /**
+   * @returns devuelve un String con el AccessToken
+   */
+  getToken(): string {
     return localStorage.getItem('accessToken');
   }
 
@@ -60,7 +68,7 @@ export class AuthService {
     }
   }
 
-  logoutUser() {
+  logoutUser(): Observable<any> {
     let accessToken = localStorage.getItem('accessToken');
     const url_api = `http://localhost:3000/api/Users/logout?access_token=${accessToken}`;
     localStorage.removeItem('accessToken');

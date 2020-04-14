@@ -32,7 +32,6 @@ export class ViewOrdersComponent implements OnInit, OnDestroy {
     return this.dateService.DevolucionFecha$().subscribe((date) => {
       this.clear(); // Limpiamos las variables y ponemos a cero
       this.subscritionDevolucionDatos = this.getApiData(); //  Ejecutamos Para tener los datos
-      console.log('ejecuta getApiData');
     });
   }
 
