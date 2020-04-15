@@ -22,8 +22,7 @@ export class MonthviewComponent implements OnInit {
   ngOnInit(): void {
     this.dateService.fechaMonth.subscribe({
       next: (res) => {
-        console.log(res);
-        this.getDataMonth(res.startDate, res.endDate);
+        this.getDataMonth(res['startDate'], res['endDate']);
       },
       error: (err) => {
         console.log(err);
@@ -41,7 +40,6 @@ export class MonthviewComponent implements OnInit {
     this.dataApi.getOrdersMonth(startDate, endDate).subscribe({
       next: (res) => {
         this.orders = res;
-        console.log(res);
       },
       error: (err) => {
         console.log(err);

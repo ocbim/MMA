@@ -13,7 +13,7 @@
       </thead>
       <tbody>
 
-        <tr *ngFor="let index, let item of orders; trackBy:trackById()">
+        <tr *ngFor="let index, let item of orders; trackBy:trackById">
           <th scope="col">{{item.codOrder}}</th>
           <th scope="col">{{item.typeInstalation}}</th>
           <th scope="col">{{item.point}}</th>
