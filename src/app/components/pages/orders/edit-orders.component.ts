@@ -41,7 +41,7 @@ export class EditOrdersComponent implements OnInit {
     });
   }
 
-  changeTypeInstalation() {
+  changeTypeInstalation(): void {
     if (
       this.orders.typeInstalation == 'MM_NUEVA_INTERIOR' ||
       this.orders.typeInstalation == 'MM_NEBA_AUTOINST_INT'
@@ -71,7 +71,7 @@ export class EditOrdersComponent implements OnInit {
     this.suma();
   }
 
-  changeMeter() {
+  changeMeter(): void {
     if (this.orders.meter >= 80) {
       this.pointMeter = 0.3;
     } else {
@@ -81,7 +81,7 @@ export class EditOrdersComponent implements OnInit {
     this.suma();
   }
 
-  suma() {
+  suma(): void {
     if (this.hiddenMeter) {
       this.orders.point = parseFloat(
         (this.pointMeter + this.pointInstalation).toFixed(2)
@@ -91,7 +91,7 @@ export class EditOrdersComponent implements OnInit {
     }
   }
 
-  postApiData(order: OrderInterfaces) {
+  postApiData(order: OrderInterfaces): void {
     this.dataApi.updatedOrder(this.orders).subscribe({
       next: (res) => {
         console.log('enviado');
@@ -100,12 +100,12 @@ export class EditOrdersComponent implements OnInit {
     });
   }
 
-  summit() {
+  summit(): void {
     this.orders.updated_at = moment().toISOString();
     this.postApiData(this.orders);
   }
 
-  exit(){
+  exit(): void {
     this.router.navigate(['/orders/view']);
   }
 }

@@ -32,7 +32,7 @@ export class NewOrdersComponent implements OnInit {
     this.orders.user_id = this.authService.getCurrentUser().id;
   }
 
-  changeTypeInstalation() {
+  changeTypeInstalation(): void {
     if (
       this.orders.typeInstalation == 'MM_NUEVA_INTERIOR' ||
       this.orders.typeInstalation == 'MM_NEBA_AUTOINST_INT'
@@ -62,7 +62,7 @@ export class NewOrdersComponent implements OnInit {
     this.suma();
   }
 
-  changeMeter() {
+  changeMeter(): void {
     if (this.orders.meter >= 80) {
       this.pointMeter = 0.3;
     } else {
@@ -72,7 +72,7 @@ export class NewOrdersComponent implements OnInit {
     this.suma();
   }
 
-  suma() {
+  suma(): void {
     if (this.hiddenMeter) {
       this.orders.point = parseFloat(
         (this.pointMeter + this.pointInstalation).toFixed(2)
@@ -82,7 +82,7 @@ export class NewOrdersComponent implements OnInit {
     }
   }
 
-  postApiData(order: OrderInterfaces) {
+  postApiData(order: OrderInterfaces): void {
     this.dataApi.saveOrder(this.orders).subscribe({
       next: (res) => {
         console.log('enviado');
@@ -91,7 +91,7 @@ export class NewOrdersComponent implements OnInit {
     });
   }
 
-  summit() {
+  summit(): void {
     this.orders.created_at = moment().toISOString();
     this.orders.updated_at = moment().toISOString();
     this.postApiData(this.orders);
