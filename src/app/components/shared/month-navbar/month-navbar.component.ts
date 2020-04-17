@@ -30,8 +30,8 @@ export class MonthNavbarComponent implements OnInit {
    * @param date  Se pasa la fecha para que pueda sacar la fecha inicio y final del mismo mes.
    */
   startEndDate(date) {
-    let startDate = moment(date).startOf('month').toISOString();
-    let endDate = moment(date).endOf('month').toISOString();
+    const startDate = moment(date).startOf('month').toISOString();
+    const endDate = moment(date).endOf('month').toISOString();
     this.dateService.fechaMonth.next({ startDate, endDate });
   }
 }
