@@ -23,13 +23,13 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  register() {
+  register(): void {
     this.user.created_at = moment().toISOString();
     this.user.update_at = moment().toISOString();
     this.comprobarPass();
     console.log(this.user);
   }
-  comprobarPass() {
+  comprobarPass(): void {
     if (this.pass == this.passVeryfy) {
       this.user.password = this.pass;
       this.postRegister(this.user);
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  postRegister(user) {
+  postRegister(user): void {
     this.authService.registerUser(user).subscribe({
       error: (err) => {
         this.alertsService.postAlert(AlertsEnum.error, err.error.error.message);

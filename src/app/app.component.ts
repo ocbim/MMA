@@ -7,7 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'MMA';
+  title: string = 'MMA';
   public hideUnderNav: boolean = false;
   public hidenMonthNav: boolean = false;
   /**

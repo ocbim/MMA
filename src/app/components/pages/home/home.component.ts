@@ -9,13 +9,8 @@ import { interval } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
-
-  trueFalse(){
-    this.auth.checkIsLogged()
-  }
-
 }

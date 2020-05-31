@@ -32,7 +32,11 @@ const routes: Routes = [
     component: ViewOrdersComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'orders/monthview', component: MonthviewComponent },
+  {
+    path: 'orders/monthview',
+    component: MonthviewComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', component: Page404Component },
 ];
 

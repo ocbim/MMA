@@ -10,7 +10,7 @@ export class AlertsService {
 
   constructor() {}
 
-  postAlert(type, menssage) {
+  postAlert(type, menssage): void {
     this.alert$.next({ type: type, message: menssage });
   }
 }
