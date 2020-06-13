@@ -34,7 +34,7 @@ export class DataApiService {
       this.authService.getCurrentUser().id == null
         ? ''
         : this.authService.getCurrentUser();
-    const urlApiDate = `http://localhost:3000/api/orders?filter={ "user_id": "${user_id}" ,"where" : {"dateInstalation": { "between": ["${startDate}", "${endDate}"] } } }`;
+    const urlApiDate = `http://192.168.0.10:3000/api/orders?filter={ "user_id": "${user_id}" ,"where" : {"dateInstalation": { "between": ["${startDate}", "${endDate}"] } } }`;
     return this.http.get<OrderInterfaces>(urlApiDate).pipe(map((data) => data));
   }
 
@@ -48,7 +48,7 @@ export class DataApiService {
       this.authService.getCurrentUser().id == null
         ? ''
         : this.authService.getCurrentUser();
-    const urlApiDate = `http://localhost:3000/api/orders?filter={ "user_id": "${user_id}" ,"where" : {"dateInstalation": { "between": ["${this.date.fechaISO}", "${this.date.fechaISOOneDay}"] } } }`;
+    const urlApiDate = `http://192.168.0.10:3000/api/orders?filter={ "user_id": "${user_id}" ,"where" : {"dateInstalation": { "between": ["${this.date.fechaISO}", "${this.date.fechaISOOneDay}"] } } }`;
     return this.http.get<OrderInterfaces>(urlApiDate).pipe(map((data) => data));
   }
 
@@ -57,7 +57,7 @@ export class DataApiService {
      * http://localhost:3000/api/orders/5
      * Devuelve un Observable de una peticion GET con una sola orde buscada por la ID
      */
-    const urlApi = `http://localhost:3000/api/orders/${orderId}`;
+    const urlApi = `http://192.168.0.10:3000/api/orders/${orderId}`;
     return (this.order$ = this.http.get(urlApi));
   }
 
@@ -68,7 +68,7 @@ export class DataApiService {
      * http://localhost:3000/api/orders/?access_token=${token}
      */
     const token = this.authService.getToken();
-    const urlApi = `http://localhost:3000/api/orders/?access_token=${token}`;
+    const urlApi = `http://192.168.0.10:3000/api/orders/?access_token=${token}`;
     return this.http
       .post<OrderInterfaces>(urlApi, order, { headers: this.headers })
       .pipe(map((data) => data));
@@ -81,7 +81,7 @@ export class DataApiService {
      * http://localhost:3000/orders/?access_token=${token}
      */
     const token = this.authService.getToken();
-    const urlApi = `http://localhost:3000/api/orders/?access_token=${token}`;
+    const urlApi = `http://192.168.0.10:3000/api/orders/?access_token=${token}`;
     return this.http
       .put<OrderInterfaces>(urlApi, order, { headers: this.headers })
       .pipe(map((data) => data));
@@ -94,7 +94,7 @@ export class DataApiService {
      * http://localhost:3000/api/orders/${id}?access_token=${token}
      */
     const token = this.authService.getToken();
-    const urlApi = `http://localhost:3000/api/orders/${id}?access_token=${token}`;
+    const urlApi = `http://192.168.0.10:3000/api/orders/${id}?access_token=${token}`;
     return this.http.delete<OrderInterfaces>(urlApi).pipe(map((data) => data));
   }
 }

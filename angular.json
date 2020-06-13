@@ -132,6 +132,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "MMA"
+    }
+  },
+  "defaultProject": "MMA",
+  "cli": {
+    "analytics": false
+  }
 }
