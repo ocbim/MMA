@@ -29,7 +29,7 @@ export class NewOrdersComponent implements OnInit {
     this.orders.meter = 0;
     this.orders.typeInstalation = '-----';
     this.orders.dateInstalation = moment().format('YYYY-MM-DD');
-    this.orders.user_id = this.authService.getCurrentUser().id;
+    this.orders.userid = this.authService.getCurrentUser().email;
   }
 
   changeTypeInstalation(): void {

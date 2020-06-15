@@ -15,7 +15,7 @@ export interface OrderInterfaces {
 
   dateInstalation?: string,
 
-  user_id?: string,
+  userid?: string,
 
   created_at?: string,
 

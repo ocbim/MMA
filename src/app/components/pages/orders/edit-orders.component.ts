@@ -26,7 +26,7 @@ export class EditOrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.idOrder = this.activeRoute.snapshot.params.id;
-    this.orders.user_id = this.authService.getCurrentUser().id;
+    this.orders.userid = this.authService.getCurrentUser().email;
     this.dataApi.getOrderById(this.idOrder).subscribe({
       next: (res) => {
         this.orders = res;

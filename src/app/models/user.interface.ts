@@ -6,5 +6,5 @@ export interface UserInterface {
   email?: string,
   lastname?: string,
   created_at ?: string,
-  update_at ?: string
+  update_at ?: string,
 }

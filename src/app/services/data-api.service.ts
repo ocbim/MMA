@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { OrderInterfaces } from './../models/order.interface';
 import { DateService } from './date.service';
+import { isString } from 'util';
 
 @Injectable({
   providedIn: 'root',
@@ -30,11 +31,11 @@ export class DataApiService {
 
   getOrdersMonth(startDate, endDate): Observable<OrderInterfaces> {
     // tslint:disable-next-line: variable-name
-    const user_id =
+    const userid =
       this.authService.getCurrentUser().id == null
         ? ''
-        : this.authService.getCurrentUser();
-    const urlApiDate = `http://192.168.0.10:3000/api/orders?filter={ "user_id": "${user_id}" ,"where" : {"dateInstalation": { "between": ["${startDate}", "${endDate}"] } } }`;
+        : this.authService.getCurrentUser().email;
+    const urlApiDate = `https://apimma.herokuapp.com/api/orders?filter={ "where": {"userid": "${userid}", "dateInstalation": { "between": ["${startDate}", "${endDate}"] } } }`;
     return this.http.get<OrderInterfaces>(urlApiDate).pipe(map((data) => data));
   }
 
@@ -44,11 +45,12 @@ export class DataApiService {
      * Devuelve un Observable de una peticion GET de todas las orden
      */
     // tslint:disable-next-line: variable-name
-    const user_id =
+    const userid =
       this.authService.getCurrentUser().id == null
         ? ''
-        : this.authService.getCurrentUser();
-    const urlApiDate = `http://192.168.0.10:3000/api/orders?filter={ "user_id": "${user_id}" ,"where" : {"dateInstalation": { "between": ["${this.date.fechaISO}", "${this.date.fechaISOOneDay}"] } } }`;
+        : this.authService.getCurrentUser().email;
+    const urlApiDate = `https://apimma.herokuapp.com/api/orders?filter={ "where": {"userid": "${userid}", "dateInstalation": { "between": ["${this.date.fechaISO}", "${this.date.fechaISOOneDay}"] } } }`;
+    console.log(`este es el id de ususario ${userid}`)
     return this.http.get<OrderInterfaces>(urlApiDate).pipe(map((data) => data));
   }
 
@@ -57,7 +59,7 @@ export class DataApiService {
      * http://localhost:3000/api/orders/5
      * Devuelve un Observable de una peticion GET con una sola orde buscada por la ID
      */
-    const urlApi = `http://192.168.0.10:3000/api/orders/${orderId}`;
+    const urlApi = `https://apimma.herokuapp.com/api/orders/${orderId}`;
     return (this.order$ = this.http.get(urlApi));
   }
 
@@ -68,7 +70,7 @@ export class DataApiService {
      * http://localhost:3000/api/orders/?access_token=${token}
      */
     const token = this.authService.getToken();
-    const urlApi = `http://192.168.0.10:3000/api/orders/?access_token=${token}`;
+    const urlApi = `https://apimma.herokuapp.com/api/orders/?access_token=${token}`;
     return this.http
       .post<OrderInterfaces>(urlApi, order, { headers: this.headers })
       .pipe(map((data) => data));
@@ -81,7 +83,7 @@ export class DataApiService {
      * http://localhost:3000/orders/?access_token=${token}
      */
     const token = this.authService.getToken();
-    const urlApi = `http://192.168.0.10:3000/api/orders/?access_token=${token}`;
+    const urlApi = `https://apimma.herokuapp.com/api/orders/?access_token=${token}`;
     return this.http
       .put<OrderInterfaces>(urlApi, order, { headers: this.headers })
       .pipe(map((data) => data));
@@ -94,7 +96,7 @@ export class DataApiService {
      * http://localhost:3000/api/orders/${id}?access_token=${token}
      */
     const token = this.authService.getToken();
-    const urlApi = `http://192.168.0.10:3000/api/orders/${id}?access_token=${token}`;
+    const urlApi = `https://apimma.herokuapp.com/api/orders/${id}?access_token=${token}`;
     return this.http.delete<OrderInterfaces>(urlApi).pipe(map((data) => data));
   }
 }

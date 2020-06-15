@@ -27,14 +27,14 @@ export class AuthService {
   }
 
   registerUser(user: UserInterface): Observable<any> {
-    let urlApi = 'http://localhost:3000/api/Users';
+    let urlApi = 'https://apimma.herokuapp.com/api/Users';
     return this.http
       .post<UserInterface>(urlApi, user, { headers: this.headers })
       .pipe(map((data) => data));
   }
 
   loginUser(user: UserInterface): Observable<any> {
-    let urlApi = 'http://localhost:3000/api/Users/login?include=user';
+    let urlApi = 'https://apimma.herokuapp.com/api/Users/login?include=user';
     return this.http
       .post<UserInterface>(urlApi, user, { headers: this.headers })
       .pipe(map((data) => data));
@@ -70,7 +70,7 @@ export class AuthService {
 
   logoutUser(): Observable<any> {
     let accessToken = localStorage.getItem('accessToken');
-    const url_api = `http://localhost:3000/api/Users/logout?access_token=${accessToken}`;
+    const url_api = `https://apimma.herokuapp.com/api/Users/logout?access_token=${accessToken}`;
     localStorage.removeItem('accessToken');
     localStorage.removeItem('currentUser');
     return this.http.post<UserInterface>(url_api, { headers: this.headers });
