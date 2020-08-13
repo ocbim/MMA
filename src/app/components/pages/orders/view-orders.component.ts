@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { OrderInterfaces } from 'src/app/models/order.interface';
 import { DateService } from 'src/app/services/date.service';
 import { map } from 'rxjs/operators';
+import { PatternValidator } from '@angular/forms';
 
 @Component({
   selector: 'app-view-orders',
@@ -82,6 +83,34 @@ export class ViewOrdersComponent implements OnInit, OnDestroy {
    */
   clear(): void {
     this.totalPoints = 0;
+  }
+
+  comparadorCodLogo(dato: string) {
+    let reYoigo = /^Y[0-9]{8}/;
+    let reMasMovil = /^MYSIM_[0-9]{7}/;
+    let reMarcaBlanca = /^WD_[0-9]{7}/;
+    let rePepePhone = /^PP[0-9]{11}/;
+    let reAveria = /^MAS-[0-9]{8}/;
+
+    if (reYoigo.test(dato)) {
+      return "Yoigo"
+    }
+    if (reMasMovil.test(dato))   {
+      return "MasMovil"
+    }
+    if (reMarcaBlanca.test(dato)) {
+      return "Marca Blanca"
+    }
+    if (reAveria.test(dato)) {
+      return "Averia"
+    }
+    if (rePepePhone.test(dato)) {
+      return "PepePhone"
+    }
+  }
+
+  comparadorCodLogoColor() {
+
   }
   /**
    * @description Desuscribre las subscriciones que tenemos activas cuando cuando el ciclo de vida se destruye
