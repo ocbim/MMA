@@ -66,6 +66,9 @@ export class EditOrdersComponent implements OnInit {
     } else if (this.orders.typeInstalation == 'MM_AVERIA') {
       this.pointInstalation = 0.85;
       this.hiddenMeter = false;
+    } else if (this.orders.typeInstalation == 'MM_AGILETV'){
+      this.pointInstalation == 0.85;
+      this.hiddenMeter = false;
     }
 
     this.suma();
