@@ -3,8 +3,6 @@ import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import * as moment from 'moment';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/pages/home/home.component';
@@ -22,6 +20,9 @@ import { AlertsComponent } from './components/shared/alerts/alerts.component';
 import { AlertsService } from './services/alerts.service';
 import { MonthviewComponent } from './components/pages/orders/monthview.component';
 import { MonthNavbarComponent } from './components/shared/month-navbar/month-navbar.component';
+import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const myDeclarations = [
   AppComponent,
@@ -38,12 +39,7 @@ const myDeclarations = [
   MonthviewComponent,
   MonthNavbarComponent,
 ];
-const myImports = [
-  BrowserModule,
-  AppRoutingModule,
-  HttpClientModule,
-  FormsModule,
-];
+
 const myProviders = [
   AuthService,
   DataApiService,
@@ -55,7 +51,12 @@ const myProviders = [
 
 @NgModule({
   declarations: myDeclarations,
-  imports: myImports,
+  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),],
   providers: myProviders,
   bootstrap: [AppComponent],
 })
