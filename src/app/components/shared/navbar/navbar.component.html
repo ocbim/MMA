@@ -34,9 +34,9 @@
           Ordenes
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" routerLinkActive routerLink="/orders/view">View</a>
-          <a class="dropdown-item" routerLinkActive routerLink="/orders/new">New</a>
-          <a class="dropdown-item" routerLinkActive routerLink="/orders/monthview">MonthView</a>
+          <a class="dropdown-item" routerLinkActive routerLink="/orders/view">Vista Diaria</a>
+          <a class="dropdown-item" routerLinkActive routerLink="/orders/new">Nueva Orden</a>
+          <a class="dropdown-item" routerLinkActive routerLink="/orders/monthview">Vista Meses</a>
         </div>
       </li>
     </ul>
@@ -44,14 +44,14 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" *ngIf="!authService.islogged">
         <a class="nav-link" routerLinkActive routerLink="/auth/register"
-          >Register</a
+          >Registrarse</a
         >
       </li>
       <li class="nav-item" *ngIf="!authService.islogged">
-        <a class="nav-link" routerLinkActive routerLink="/auth/login">Login</a>
+        <a class="nav-link" routerLinkActive routerLink="/auth/login">Iniciar Sesion</a>
       </li>
       <li class="nav-item" *ngIf="authService.islogged">
-        <a class="nav-link" routerLinkActive routerLink="/" (click)="logOut()">Logout</a>
+        <a class="nav-link" routerLinkActive routerLink="/" (click)="logOut()">Cerrar Sesion</a>
       </li>
 
     </ul>
