@@ -67,7 +67,7 @@ export class EditOrdersComponent implements OnInit {
       this.pointInstalation = 0.85;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_AGILETV'){
-      this.pointInstalation == 0.85;
+      this.pointInstalation = 0.85;
       this.hiddenMeter = false;
     }
 
