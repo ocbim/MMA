@@ -52,13 +52,13 @@ export class NewOrdersComponent implements OnInit {
       this.pointInstalation = 1.2;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_AVERIA_FESTIVO') {
-      this.pointInstalation = 0.95;
+      this.pointInstalation = 0.98;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_AVERIA') {
       this.pointInstalation = 0.85;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_AGILETV'){
-      this.pointInstalation = 0.85;
+      this.pointInstalation = 0.24;
       this.hiddenMeter = false;
     }
 
