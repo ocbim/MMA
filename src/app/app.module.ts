@@ -24,6 +24,11 @@ import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       enabled: environment.production,
     }),
     BrowserAnimationsModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatListModule,
   ],
   providers: [
     AuthService,
