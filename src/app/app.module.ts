@@ -25,41 +25,41 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const myDeclarations = [
-  AppComponent,
-  HomeComponent,
-  NavbarComponent,
-  Page404Component,
-  LoginComponent,
-  RegisterComponent,
-  NewOrdersComponent,
-  EditOrdersComponent,
-  ViewOrdersComponent,
-  UnderNavbarComponent,
-  AlertsComponent,
-  MonthviewComponent,
-  MonthNavbarComponent,
-];
-
-const myProviders = [
-  AuthService,
-  DataApiService,
-  DateService,
-  AlertsService,
-  HttpClientModule,
-  HttpClient,
-];
-
 @NgModule({
-  declarations: myDeclarations,
-  imports: [BrowserModule.withServerTransition({ appId: 'serverApp' }),
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    NavbarComponent,
+    Page404Component,
+    LoginComponent,
+    RegisterComponent,
+    NewOrdersComponent,
+    EditOrdersComponent,
+    ViewOrdersComponent,
+    UnderNavbarComponent,
+    AlertsComponent,
+    MonthviewComponent,
+    MonthNavbarComponent,
+  ],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     RouterModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    BrowserAnimationsModule,],
-  providers: myProviders,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
+    BrowserAnimationsModule,
+  ],
+  providers: [
+    AuthService,
+    DataApiService,
+    DateService,
+    AlertsService,
+    HttpClientModule,
+    HttpClient,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
