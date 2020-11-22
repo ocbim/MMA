@@ -21,16 +21,16 @@
       </button>
       <span>{{ app_name | uppercase }}</span>
       <span class="example-spacer"></span>
-      <ul class="list-inline mt-2">
-        <li class="h6 list-inline-item" *ngIf="!authService.islogged">
-          <a class="nav-link" routerLinkActive routerLink="/auth/register"
-          >Registrarse</a>
+      <ul class="list-inline">
+        <li class="list-inline-item" *ngIf="!authService.islogged">
+          <button mat-button routerLinkActive routerLink="/auth/register"
+          >Registrarse</button>
         </li>
-        <li class="h6 list-inline-item" *ngIf="!authService.islogged">
-          <a class="nav-link" routerLinkActive routerLink="/auth/login">Iniciar Sesion</a>
+        <li class="list-inline-item" *ngIf="!authService.islogged">
+          <button mat-button routerLinkActive routerLink="/auth/login">Iniciar Sesion</button>
         </li>
-        <li class="h6 list-inline-item" *ngIf="authService.islogged" >
-          <a class="nav-link" routerLinkActive routerLink="/" (click)="logOut()">Cerrar Sesion</a>
+        <li class="list-inline-item" *ngIf="authService.islogged" >
+          <button mat-button routerLinkActive routerLink="/" (click)="logOut()">Cerrar Sesion</button>
         </li>
       </ul>
     </mat-toolbar>
