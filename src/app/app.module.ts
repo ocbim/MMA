@@ -23,6 +23,7 @@ import { MonthNavbarComponent } from './components/shared/month-navbar/month-nav
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const myDeclarations = [
   AppComponent,
@@ -56,7 +57,8 @@ const myProviders = [
     HttpClientModule,
     FormsModule,
     RouterModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),],
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    BrowserAnimationsModule,],
   providers: myProviders,
   bootstrap: [AppComponent],
 })

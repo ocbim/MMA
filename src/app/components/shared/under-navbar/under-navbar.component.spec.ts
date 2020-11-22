@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { UnderNavbarComponent } from './under-navbar.component';
 
@@ -6,7 +6,7 @@ describe('UnderNavbarComponent', () => {
   let component: UnderNavbarComponent;
   let fixture: ComponentFixture<UnderNavbarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ UnderNavbarComponent ]
     })
