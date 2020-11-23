@@ -1,10 +1,11 @@
-<mat-sidenav #sidenav mode="side" class="bg-light">
-  <div class="d-flex flex-column m-4" *ngIf="authService.islogged">
-    <button mat-button (click)='sidenav.toggle()'><mat-icon>menu</mat-icon></button>
-    <button mat-button (click)='sidenav.toggle()' routerLink="/">Home Page</button>
-    <button mat-button (click)='sidenav.toggle()' routerLink="/orders/new">Añadir Orden</button>
-    <button mat-button (click)='sidenav.toggle()' routerLink="/orders/monthview">Vista Meses</button>
-    <button mat-button (click)='sidenav.toggle()' routerLink="/orders/view">Vista Diaria</button>
+<mat-sidenav #sidenav mode="side" class="bg-light w-50">
+  <div class="flex-row flex" *ngIf="authService.islogged">
+    <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()'><i class="fas fa-outdent mx-auto"></i></button>
+    <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/"><i class="fas fa-home"> Home Page</i></button>
+    <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/orders/new"><i class="fas fa-plus-circle"> Añadir Orden</i></button>
+    <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/orders/monthview"><i class="fas fa-calendar-alt"> Vista Mes</i></button>
+    <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/orders/view"><i class="fas fa-list-alt"> Listado</i></button>
+    <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive (click)='logOut()' routerLink='/'><i class="fas fa-sign-out-alt"> Cerrar Sesión</i></button>
   </div>
 </mat-sidenav>
 
@@ -23,14 +24,10 @@
       <span class="example-spacer"></span>
       <ul class="list-inline">
         <li class="list-inline-item" *ngIf="!authService.islogged">
-          <button mat-button routerLinkActive routerLink="/auth/register"
-          >Registrarse</button>
+          <button mat-button routerLinkActive routerLink="/auth/register"><i class="fas fa-user-plus"></i></button>
         </li>
         <li class="list-inline-item" *ngIf="!authService.islogged">
-          <button mat-button routerLinkActive routerLink="/auth/login">Iniciar Sesion</button>
-        </li>
-        <li class="list-inline-item" *ngIf="authService.islogged" >
-          <button mat-button routerLinkActive routerLink="/" (click)="logOut()">Cerrar Sesion</button>
+          <button mat-button routerLinkActive routerLink="/auth/login"><i class="fas fa-sign-in-alt"></i></button>
         </li>
       </ul>
     </mat-toolbar>
