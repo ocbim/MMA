@@ -63,6 +63,9 @@ export class NewOrdersComponent implements OnInit {
     } else if (this.orders.typeInstalation == 'MM_GUARDIA_VALL/PAL'){
       this.pointInstalation = 0.0;
       this.hiddenMeter = false;
+    } else if (this.orders.typeInstalation == 'MM_RECLAMACION'){
+      this.pointInstalation = 0.97;
+      this.hiddenMeter = false;
     }
 
     this.suma();
