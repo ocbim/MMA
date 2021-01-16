@@ -43,10 +43,6 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
     });
   }
 
-  getTotalPuntos() {
-    return this.dataSource.map(t => t.point).reduce((acc, value)=> acc + value, 0)
-  }
-
   /**
    * @description Sirve para solicitar los datos desde el
    * DataApiServer el metodo getOrdersMonth que recibe dos parametos
@@ -60,10 +56,8 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
         this.dataSource = new MatTableDataSource<OrderInterfaces>(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        console.log(res);
-        res.map((re) => {
-          this.totalPoint += re.point;
-        });
+        this.totalPoint = res.map(r => r.point).reduce((acc, value) => acc + value, 0);
+
       },
       error: (err) => {
         console.log(err);
