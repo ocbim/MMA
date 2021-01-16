@@ -1,5 +1,11 @@
+<ul class="nav nav-tabs justify-content-center">
+  <li class="nav-item" (click)= 'restaUnAno()' ><a><i class="fas fa-angle-left fa-lg mr-4 text-primary"></i></a></li>
+  <li class="nav-item"> <h4> {{ano}} </h4> </li>
+  <li class="nav-item" (click) = 'sumarUnAno()' ><a> <i class="fas fa-angle-right fa-lg ml-4 text-primary"></i> </a></li>
+</ul>
+
 <ul class="nav nav-tabs justify-content-center ">
   <li class="nav-item" *ngFor="let item of dateStartForMonth">
-    <a class="nav-link" (click) = 'startEndDate(item)'>{{ item | date:'MMM' }}</a>
+    <a class="nav-link" (click) = 'startEndDate(item)'>{{ item | date: 'MMM' : 'es-ES' }}</a>
   </li>
 </ul>

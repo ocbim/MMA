@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { DataApiService } from 'src/app/services/data-api.service';
 import { DateService } from 'src/app/services/date.service';
 
 @Component({
@@ -10,24 +9,50 @@ import { DateService } from 'src/app/services/date.service';
 })
 export class MonthNavbarComponent implements OnInit {
   dateStartForMonth = [];
-  constructor(
-    private dataApi: DataApiService,
-    private dateService: DateService
-  ) {}
+  ano = moment().get('year'); /* extraemos el año en el que estamos ejemplo '2021' */
+  constructor(private dateService: DateService) {}
   /**
    * @description Inicializamos con un for que guardara una lista con las
    * fechas enero,Febrero, Marzo, Abril ect...
    */
   ngOnInit(): void {
-    for (let index = 0; index < 12; index++) {
+    this.creamosListaMeses();
+  }
+
+  /**
+   * @description Inicializamos un for que guarda una lista de fechas enero, feber, marzo abril ect...
+   */
+  creamosListaMeses(): void {
+    this.dateStartForMonth = [];
+    for (let i = 0; i < 12; i++) {
       this.dateStartForMonth.push(
-        moment().set('month', index).startOf('month').toISOString()
+        moment()
+          .set({ month: i, year: this.ano })
+          .startOf('month')
+          .toISOString()
       );
     }
   }
+
+  /**
+   * @description restamos un año de la fecha y volvemos a crear la lista de meses
+   */
+  restaUnAno(): void {
+    --this.ano;
+    this.creamosListaMeses();
+  }
+  /**
+   * @description Sumamos un año de la fecha y volvemos a crear una lista de meses
+   */
+  sumarUnAno(): void {
+    ++this.ano;
+    this.creamosListaMeses();
+  }
+
   /**
    * @description Almacena las fechas inicio y final del mismo mes y año.
    * @param date  Se pasa la fecha para que pueda sacar la fecha inicio y final del mismo mes.
+   * luego lo enviamos a un observable de los servicios fechas.
    */
   startEndDate(date) {
     const startDate = moment(date).startOf('month').toISOString();
