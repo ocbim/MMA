@@ -29,14 +29,14 @@ export class DataApiService {
     Authorization: this.authService.getToken(),
   });
 
-  getOrdersMonth(startDate, endDate): Observable<OrderInterfaces> {
+  getOrdersMonth(startDate, endDate): Observable<OrderInterfaces[]> {
     // tslint:disable-next-line: variable-name
     const userid =
       this.authService.getCurrentUser().id == null
         ? ''
         : this.authService.getCurrentUser().email;
     const urlApiDate = `https://apimma.herokuapp.com/api/orders?filter={ "where": {"userid": "${userid}", "dateInstalation": { "between": ["${startDate}", "${endDate}"] } } }`;
-    return this.http.get<OrderInterfaces>(urlApiDate).pipe(map((data) => data));
+    return this.http.get<OrderInterfaces[]>(urlApiDate).pipe(map((data) => data));
   }
 
   getAllOrders(): Observable<any> {

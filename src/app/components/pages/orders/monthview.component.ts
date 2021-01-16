@@ -1,21 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataApiService } from 'src/app/services/data-api.service';
 import { DateService } from 'src/app/services/date.service';
 import { OrderInterfaces } from 'src/app/models/order.interface';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-monthview',
   templateUrl: './monthview.component.html',
   styleUrls: ['./monthview.component.scss'],
 })
-export class MonthviewComponent implements OnInit {
-  orders: OrderInterfaces = [];
-  totalPoint = 0.0;
+export class MonthviewComponent implements OnInit, OnDestroy  {
 
   constructor(
     private dataApi: DataApiService,
     private dateService: DateService
   ) {}
+
+  dataSource: MatTableDataSource<OrderInterfaces>;
+  columnasAMostrar: string[] = ['codOrder', 'typeInstalation', 'point', 'dateInstalation'];
+  totalPoint = 0.0;
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   /**
    * @returns void
@@ -34,6 +43,10 @@ export class MonthviewComponent implements OnInit {
     });
   }
 
+  getTotalPuntos() {
+    return this.dataSource.map(t => t.point).reduce((acc, value)=> acc + value, 0)
+  }
+
   /**
    * @description Sirve para solicitar los datos desde el
    * DataApiServer el metodo getOrdersMonth que recibe dos parametos
@@ -44,8 +57,13 @@ export class MonthviewComponent implements OnInit {
   getDataMonth(startDate, endDate): void {
     this.dataApi.getOrdersMonth(startDate, endDate).subscribe({
       next: (res) => {
-        this.orders = res;
-        res.map((res)=>{this.totalPoint += res.point})
+        this.dataSource = new MatTableDataSource<OrderInterfaces>(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        console.log(res);
+        res.map((re) => {
+          this.totalPoint += re.point;
+        });
       },
       error: (err) => {
         console.log(err);
@@ -69,5 +87,9 @@ export class MonthviewComponent implements OnInit {
    */
   clear(): void {
     this.totalPoint = 0.0;
+  }
+
+  ngOnDestroy(){
+    this.dateService.fechaMonth.unsubscribe();
   }
 }

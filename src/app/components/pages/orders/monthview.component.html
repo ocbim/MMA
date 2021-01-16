@@ -1,7 +1,7 @@
 <div class="container mt-4">
-  <div class="col">
+  <div class="col mat-elevation-z8">
 
-    <table class="table table-responsive-sm table-hover">
+    <!-- <table class="table table-responsive-sm table-hover">
       <thead class="thead-light">
         <tr>
           <th scope="col">Cod</th>
@@ -28,7 +28,44 @@
         </tr>
 
       </tbody>
+    </table> -->
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Codigo de ordenes-->
+      <ng-container matColumnDef="codOrder">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CodigoOrdenes </th>
+        <td mat-cell *matCellDef="let element"> {{element.codOrder}} </td>
+        <td mat-footer-cell *matFooterCellDef> Total </td>
+      </ng-container>
+
+      <!-- Tipo de Instalacion -->
+      <ng-container matColumnDef="typeInstalation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> TipoInstalacion </th>
+        <td mat-cell *matCellDef="let element"> {{element.typeInstalation}} </td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
+      </ng-container>
+
+      <!-- Puntos de Instalacion -->
+      <ng-container matColumnDef="point">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Puntos </th>
+        <td mat-cell *matCellDef="let element"> {{element.point}} </td>
+        <td mat-footer-cell *matFooterCellDef> {{totalPoint}} </td>
+      </ng-container>
+
+      <!-- Fecha de Instalacion -->
+      <ng-container matColumnDef="dateInstalation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> FechaInstalacion </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateInstalation}} </td>
+        <td mat-footer-cell *matFooterCellDef> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnasAMostrar"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnasAMostrar;"></tr>
+      <tr mat-footer-row *matFooterRowDef="columnasAMostrar"></tr>
+
     </table>
+    <mat-paginator [pageSizeOptions]="[20, 40, 80, 160]" showFirstLastButtons></mat-paginator>
 
   </div>
 </div>
