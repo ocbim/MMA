@@ -1,7 +1,7 @@
-<div class="container mt-4">
-  <div class="col mat-elevation-z8">
+<div class="container  mt-4">
+  <div class=" table-responsive mat-elevation-z8">
 
-    <table class="table-responsive" mat-table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter">
+    <table mat-table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter">
 
       <!-- Codigo de ordenes-->
       <ng-container matColumnDef="codOrder">
@@ -36,14 +36,14 @@
       <tr mat-footer-row *matFooterRowDef="columnasAMostrar"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[80, 160,320]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[78, 160,320]" showFirstLastButtons></mat-paginator>
 
-  </div>
-  <button mat-icon-button (click)="exporter.exportTable('xlsx', {fileName:'totalPuntosMes', sheet: 'sheet_name', Props: {Author: 'ocbim'}})"><i class="far fa-file-excel"></i></button>
-  <button mat-icon-button (click)="exporter.exportTable('csv', {fileName: 'totalPuntosMes'})"><i class="fas fa-file-csv"></i></button>
-  <button mat-icon-button (click)="exporter.exportTable('json', {fileName: 'totalPuntosMes'})"><i class="fab fa-js"></i></button>
-  <button mat-icon-button (click)="exporter.exportTable('txt', {fileName: 'totalPuntosMes'})"><i class="fas fa-file-alt"></i></button>
-  <div>
+      </div>
+        <button mat-icon-button (click)="exporter.exportTable('xlsx', {fileName:'totalPuntosMes', sheet: 'sheet_name', Props: {Author: 'ocbim'}})"><i class="far fa-file-excel"></i></button>
+        <button mat-icon-button (click)="exporter.exportTable('csv', {fileName: 'totalPuntosMes'})"><i class="fas fa-file-csv"></i></button>
+        <button mat-icon-button (click)="exporter.exportTable('json', {fileName: 'totalPuntosMes'})"><i class="fab fa-js"></i></button>
+        <button mat-icon-button (click)="exporter.exportTable('txt', {fileName: 'totalPuntosMes'})"><i class="fas fa-file-alt"></i></button>
+      <div>
 
   </div>
 </div>
