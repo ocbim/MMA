@@ -1,7 +1,6 @@
-table {
-  width: 100%;
+mat-sort-header-container {
+  align-items: center;
 }
-
-.mat-column-select {
-  overflow: initial;
+th.mat-sort-header-sorted {
+  color: black;
 }

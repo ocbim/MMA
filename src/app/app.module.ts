@@ -33,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 
 
@@ -69,7 +70,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatListModule,
     MatDialogModule,
     MatTableModule,
-    MatPaginatorModule, MatSortModule
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableExporterModule
   ],
   providers: [
     AuthService,

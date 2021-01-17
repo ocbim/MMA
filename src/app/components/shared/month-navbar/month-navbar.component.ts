@@ -36,17 +36,21 @@ export class MonthNavbarComponent implements OnInit {
 
   /**
    * @description restamos un año de la fecha y volvemos a crear la lista de meses
+   * tambien enviamos un this.dateService.fechaMonth.next({}) vacio para que refesque la tabla
    */
   restaUnAno(): void {
     --this.ano;
     this.creamosListaMeses();
+    this.dateService.fechaMonth.next({});
   }
   /**
    * @description Sumamos un año de la fecha y volvemos a crear una lista de meses
+   * tambien enviamos un this.dateService.fechaMonth.next({}) vacio para que refesque la tabla
    */
   sumarUnAno(): void {
     ++this.ano;
     this.creamosListaMeses();
+    this.dateService.fechaMonth.next({});
   }
 
   /**

@@ -57,7 +57,6 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.totalPoint = res.map(r => r.point).reduce((acc, value) => acc + value, 0);
-
       },
       error: (err) => {
         console.log(err);
@@ -81,6 +80,7 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
    */
   clear(): void {
     this.totalPoint = 0.0;
+    this.dataSource = new MatTableDataSource<OrderInterfaces>(undefined);
   }
 
   ngOnDestroy(){
