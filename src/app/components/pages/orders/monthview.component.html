@@ -2,7 +2,7 @@
   <div class=" table-responsive mat-elevation-z8">
     <!-- el [hiddenColumns]=[0] se añadio para cuando exportemos no se guarde la fila de descripciones-->
     <table mat-table matTableExporter  [dataSource]="dataSource" multiTemplateDataRows matSort
-    #exporter="matTableExporter" class="mat-elevation-z8" [hiddenColumns]="[0]">
+    #exporter="matTableExporter" [hiddenColumns]="[0]">
 
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnasAMostrar">
 
