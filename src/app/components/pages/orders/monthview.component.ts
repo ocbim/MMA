@@ -5,10 +5,19 @@ import { OrderInterfaces } from 'src/app/models/order.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import { CdkTableExporter } from 'mat-table-exporter';
 
 @Component({
   selector: 'app-monthview',
   templateUrl: './monthview.component.html',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
   styleUrls: ['./monthview.component.scss'],
 })
 export class MonthviewComponent implements OnInit, OnDestroy  {
@@ -19,7 +28,8 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
   ) {}
 
   dataSource: MatTableDataSource<OrderInterfaces>;
-  columnasAMostrar: string[] = ['codOrder', 'typeInstalation', 'point', 'dateInstalation'];
+  columnasAMostrar: string[] = ['No', 'codOrder', 'typeInstalation', 'point', 'dateInstalation'];
+  expandedElement: OrderInterfaces | null;
   totalPoint = 0.0;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -74,6 +84,7 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
   trackById(index, item) {
     return index;
   }
+
 
   /**
    * @description Limpia cada ves que refrescamos el conteo de los puntos totales
