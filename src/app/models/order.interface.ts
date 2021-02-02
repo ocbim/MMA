@@ -1,23 +1,23 @@
 export interface OrderInterfaces {
   map?(arg0: (res: any) => any);
 
-  id?: string,
+  id?: string;
 
-  codOrder?: string,
+  codOrder?: string;
 
-  typeInstalation?: string,
+  typeInstalation?: string;
 
-  meter?: number,
+  meter?: number;
 
-  point?: number,
+  point?: number;
 
-  description?: string,
+  description?: string;
 
-  dateInstalation?: string,
+  dateInstalation?: string;
 
-  userid?: string,
+  userid?: string;
 
-  created_at?: string,
+  created_at?: string;
 
-  updated_at?: string
+  updated_at?: string;
 }

@@ -1,4 +1,4 @@
 export interface AlertsInterface {
-  type: string,
-  message: string
+  type: string;
+  message: string;
 }
