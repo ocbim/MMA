@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { CdkTableExporter } from 'mat-table-exporter';
 
 @Component({
   selector: 'app-monthview',
@@ -67,6 +66,8 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
         this.totalPoint = res.map(r => r.point).reduce((acc, value) => acc + value, 0);
+        let numeroLista = 1
+        console.log(this.dataSource.data.map(r => r.No = numeroLista ++));
       },
       error: (err) => {
         console.log(err);

@@ -1,6 +1,8 @@
 export interface OrderInterfaces {
   map?(arg0: (res: any) => any);
 
+  No? : number;
+
   id?: string;
 
   codOrder?: string;

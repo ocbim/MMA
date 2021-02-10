@@ -7,6 +7,8 @@
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnasAMostrar">
 
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-weight-bold"> {{
+          column == 'No' ? 'No' : ''
+          ||
           column == 'codOrder' ? 'CodigoOrdenes:' : ''
           ||
           column == 'typeInstalation' ? 'TipoInstalacion:' : ''
