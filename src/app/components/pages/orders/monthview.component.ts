@@ -36,6 +36,7 @@ export class MonthviewComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<OrderInterfaces>;
   columnasAMostrar: string[] = [
+    '', // este espacio en balanco es para que al exportar borrar la fila de descripcion.
     'No',
     'codOrder',
     'typeInstalation',

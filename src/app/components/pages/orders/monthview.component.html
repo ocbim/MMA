@@ -1,8 +1,8 @@
 <div class="container  mt-4">
   <div class=" table-responsive mat-elevation-z8">
-    <!-- el [hiddenColumns]=[0] se añadio para cuando exportemos no se guarde la fila de descripciones-->
+    <!-- el [hiddenColumns]="[0]" se añadio para cuando exportemos no se guarde la fila de descripciones-->
     <table mat-table matTableExporter  [dataSource]="dataSource" multiTemplateDataRows matSort
-    #exporter="matTableExporter" [hiddenColumns]="[0]">
+    #exporter="matTableExporter" [hiddenColumns]=[0] >
 
       <ng-container matColumnDef="{{column}}" *ngFor="let column of columnasAMostrar">
 
@@ -59,7 +59,7 @@
 
   <div>
     <button mat-icon-button (click)="exporter.exportTable('xlsx', {fileName:'totalPuntosMes',
-    sheet: 'PuntosMes', Props: {Author: 'ocbim'}, compression: true, columnWidths: [50,50,25,50] })"><i class="far fa-file-excel"></i></button>
+    sheet: 'PuntosMes', Props: {Author: 'MMAPP'}, compression: true, columnWidths: [8,50,50,25,50] })"><i class="far fa-file-excel"></i></button>
     <button mat-icon-button (click)="exporter.exportTable('csv', {fileName: 'totalPuntosMes'})"><i class="fas fa-file-csv"></i></button>
     <button mat-icon-button (click)="exporter.exportTable('json', {fileName: 'totalPuntosMes'})"><i class="fab fa-js"></i></button>
     <button mat-icon-button (click)="exporter.exportTable('txt', {fileName: 'totalPuntosMes'})"><i class="fas fa-file-alt"></i></button>
