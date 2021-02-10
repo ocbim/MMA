@@ -67,7 +67,7 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
         this.dataSource.paginator = this.paginator;
         this.totalPoint = res.map(r => r.point).reduce((acc, value) => acc + value, 0);
         let numeroLista = 1
-        console.log(this.dataSource.data.map(r => r.No = numeroLista ++));
+        this.dataSource.data.map(r => r.No = numeroLista ++);
       },
       error: (err) => {
         console.log(err);
