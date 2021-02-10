@@ -5,35 +5,48 @@ import { OrderInterfaces } from 'src/app/models/order.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-monthview',
   templateUrl: './monthview.component.html',
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
     ]),
   ],
   styleUrls: ['./monthview.component.scss'],
 })
-export class MonthviewComponent implements OnInit, OnDestroy  {
-
+export class MonthviewComponent implements OnInit, OnDestroy {
   constructor(
     private dataApi: DataApiService,
     private dateService: DateService
   ) {}
 
   dataSource: MatTableDataSource<OrderInterfaces>;
-  columnasAMostrar: string[] = ['No', 'codOrder', 'typeInstalation', 'point', 'dateInstalation'];
+  columnasAMostrar: string[] = [
+    'No',
+    'codOrder',
+    'typeInstalation',
+    'point',
+    'dateInstalation',
+  ];
   expandedElement: OrderInterfaces | null;
   totalPoint = 0.0;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
 
   /**
    * @returns void
@@ -65,9 +78,11 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
         this.dataSource = new MatTableDataSource<OrderInterfaces>(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.totalPoint = res.map(r => r.point).reduce((acc, value) => acc + value, 0);
-        let numeroLista = 1
-        this.dataSource.data.map(r => r.No = numeroLista ++);
+        this.totalPoint = res
+          .map((r) => r.point)
+          .reduce((acc, value) => acc + value, 0);
+        let numeroLista = 1;
+        this.dataSource.data.map((r) => (r.No = numeroLista++));
       },
       error: (err) => {
         console.log(err);
@@ -86,7 +101,6 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
     return index;
   }
 
-
   /**
    * @description Limpia cada ves que refrescamos el conteo de los puntos totales
    */
@@ -95,7 +109,7 @@ export class MonthviewComponent implements OnInit, OnDestroy  {
     this.dataSource = new MatTableDataSource<OrderInterfaces>(undefined);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.dateService.fechaMonth.unsubscribe();
   }
 }
