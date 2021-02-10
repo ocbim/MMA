@@ -9,13 +9,13 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="font-weight-bold"> {{
           column == 'No' ? 'No' : ''
           ||
-          column == 'codOrder' ? 'CodigoOrdenes:' : ''
+          column == 'codOrder' ? 'Codigo Ordenes:' : ''
           ||
-          column == 'typeInstalation' ? 'TipoInstalacion:' : ''
+          column == 'typeInstalation' ? 'Tipo Instalacion:' : ''
           ||
           column == 'point' ? 'Puntos: ' : ''
           ||
-          column == 'dateInstalation' ? 'FechaInstalacion:' : ''
+          column == 'dateInstalation' ? 'Fecha Instalacion:' : ''
         }} </th>
 
         <td mat-cell *matCellDef="let element" class="font-weight-light"> {{element[column]}} </td>
