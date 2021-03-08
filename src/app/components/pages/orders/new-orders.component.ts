@@ -12,10 +12,10 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./new-orders.component.scss'],
 })
 export class NewOrdersComponent implements OnInit {
-  orders = <OrderInterfaces>{};
-  pointInstalation: number = 0;
-  pointMeter: number = 0;
-  hiddenMeter: boolean = false;
+  orders = {} as OrderInterfaces;
+  pointInstalation = 0;
+  pointMeter = 0;
+  hiddenMeter = false;
 
   constructor(
     private dataApi: DataApiService,

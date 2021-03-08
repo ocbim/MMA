@@ -11,10 +11,10 @@ import { DataApiService } from 'src/app/services/data-api.service';
   styleUrls: ['./edit-orders.component.scss'],
 })
 export class EditOrdersComponent implements OnInit {
-  orders = <OrderInterfaces>{};
-  pointInstalation: number = 0;
-  pointMeter: number = 0;
-  hiddenMeter: boolean = false;
+  orders = {} as OrderInterfaces;
+  pointInstalation = 0;
+  pointMeter = 0;
+  hiddenMeter = false;
   idOrder;
 
   constructor(
