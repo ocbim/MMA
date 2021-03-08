@@ -34,45 +34,45 @@ export class EditOrdersComponent implements OnInit {
           this.orders.dateInstalation,
           moment.ISO_8601
         ).format('YYYY-MM-DD');
-        this.orders.point = 0.0
-        this.changeTypeInstalation()
-        this.changeMeter()
+        this.orders.point = 0.0;
+        this.changeTypeInstalation();
+        this.changeMeter();
       },
     });
   }
 
   changeTypeInstalation(): void {
     if (
-      this.orders.typeInstalation == 'MM_NUEVA_INTERIOR' ||
-      this.orders.typeInstalation == 'MM_NEBA_AUTOINST_INT'
+      this.orders.typeInstalation === 'MM_NUEVA_INTERIOR' ||
+      this.orders.typeInstalation === 'MM_NEBA_AUTOINST_INT'
     ) {
       this.pointInstalation = 1.95;
       this.hiddenMeter = true;
     } else if (
-      this.orders.typeInstalation == 'MM_NUEVA_EXTERIOR' ||
-      this.orders.typeInstalation == 'MM_NEBA_AUTOINST_EXT'
+      this.orders.typeInstalation === 'MM_NUEVA_EXTERIOR' ||
+      this.orders.typeInstalation === 'MM_NEBA_AUTOINST_EXT'
     ) {
       this.pointInstalation = 2.18;
       this.hiddenMeter = true;
-    } else if (this.orders.typeInstalation == 'MM_REUTILIZADA') {
+    } else if (this.orders.typeInstalation === 'MM_REUTILIZADA') {
       this.pointInstalation = 1.33;
       this.hiddenMeter = false;
-    } else if (this.orders.typeInstalation == 'MM_NEBA') {
+    } else if (this.orders.typeInstalation === 'MM_NEBA') {
       this.pointInstalation = 1.1;
       this.hiddenMeter = false;
-    } else if (this.orders.typeInstalation == 'MM_AVERIA_FESTIVO') {
+    } else if (this.orders.typeInstalation === 'MM_AVERIA_FESTIVO') {
       this.pointInstalation = 1.05;
       this.hiddenMeter = false;
-    } else if (this.orders.typeInstalation == 'MM_AVERIA') {
+    } else if (this.orders.typeInstalation === 'MM_AVERIA') {
       this.pointInstalation = 1;
       this.hiddenMeter = false;
-    } else if (this.orders.typeInstalation == 'MM_AGILETV'){
+    } else if (this.orders.typeInstalation === 'MM_AGILETV') {
       this.pointInstalation = 0.23;
       this.hiddenMeter = false;
-    } else if (this.orders.typeInstalation == 'MM_GUARDIA_VALL/PAL'){
+    } else if (this.orders.typeInstalation === 'MM_GUARDIA_VALL/PAL') {
       this.pointInstalation = 0.0;
       this.hiddenMeter = false;
-    } else if (this.orders.typeInstalation == 'MM_RECLAMACION'){
+    } else if (this.orders.typeInstalation === 'MM_RECLAMACION') {
       this.pointInstalation = 0.97;
       this.hiddenMeter = false;
     }
@@ -81,8 +81,18 @@ export class EditOrdersComponent implements OnInit {
   }
 
   changeMeter(): void {
-    if (this.orders.meter >= 80) {
+    if (
+      this.orders.typeInstalation in
+        { MM_NUEVA_EXTERIOR: '', MM_NEBA_AUTOINST_EXT: '' } &&
+      this.orders.meter >= 80
+    ) {
       this.pointMeter = 0.42;
+    } else if (
+      this.orders.typeInstalation in
+        { MM_NUEVA_INTERIOR: '', MM_NEBA_AUTOINST_INT: '' } &&
+      this.orders.meter >= 80
+    ) {
+      this.pointMeter = 0.4;
     } else {
       this.pointMeter = 0.0;
     }
