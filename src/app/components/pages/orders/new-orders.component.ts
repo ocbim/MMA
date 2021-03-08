@@ -37,28 +37,28 @@ export class NewOrdersComponent implements OnInit {
       this.orders.typeInstalation == 'MM_NUEVA_INTERIOR' ||
       this.orders.typeInstalation == 'MM_NEBA_AUTOINST_INT'
     ) {
-      this.pointInstalation = 2.2;
+      this.pointInstalation = 1.95;
       this.hiddenMeter = true;
     } else if (
       this.orders.typeInstalation == 'MM_NUEVA_EXTERIOR' ||
       this.orders.typeInstalation == 'MM_NEBA_AUTOINST_EXT'
     ) {
-      this.pointInstalation = 2.3;
+      this.pointInstalation = 2.18;
       this.hiddenMeter = true;
     } else if (this.orders.typeInstalation == 'MM_REUTILIZADA') {
-      this.pointInstalation = 1.4;
+      this.pointInstalation = 1.33;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_NEBA') {
-      this.pointInstalation = 1.2;
+      this.pointInstalation = 1.1;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_AVERIA_FESTIVO') {
-      this.pointInstalation = 0.98;
+      this.pointInstalation = 1.05;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_AVERIA') {
-      this.pointInstalation = 0.85;
+      this.pointInstalation = 1;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_AGILETV'){
-      this.pointInstalation = 0.24;
+      this.pointInstalation = 0.23;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation == 'MM_GUARDIA_VALL/PAL'){
       this.pointInstalation = 0.0;
@@ -73,7 +73,7 @@ export class NewOrdersComponent implements OnInit {
 
   changeMeter(): void {
     if (this.orders.meter >= 80) {
-      this.pointMeter = 0.3;
+      this.pointMeter = 0.42;
     } else {
       this.pointMeter = 0.0;
     }
