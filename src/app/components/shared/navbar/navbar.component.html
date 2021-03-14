@@ -1,7 +1,7 @@
 <mat-sidenav #sidenav mode="side" class="bg-light">
   <div class="flex-row flex" *ngIf="authService.islogged">
     <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()'><i class="fas fa-outdent mx-auto"></i></button>
-    <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/"><i class="fas fa-home"> Home Page</i></button>
+    <!-- <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/"><i class="fas fa-home"> Home Page</i></button> -->
     <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/orders/new"><i class="fas fa-plus-circle"> Añadir Orden</i></button>
     <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/orders/monthview"><i class="fas fa-calendar-alt"> Vista Mes</i></button>
     <button class="btn btn-outline-dark border-0 btn-block" (click)='sidenav.toggle()' routerLinkActive routerLink="/orders/view"><i class="fas fa-list-alt"> Listado</i></button>

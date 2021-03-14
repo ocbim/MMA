@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { FormControl, NgModel } from '@angular/forms';
 import { OrderInterfaces } from 'src/app/models/order.interface';
 import * as moment from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
 import { DataApiService } from 'src/app/services/data-api.service';
+import { PuntosMasMovil } from 'src/app/models/puntos-mas-movil.enum';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-orders',
@@ -14,14 +17,15 @@ export class EditOrdersComponent implements OnInit {
   orders = {} as OrderInterfaces;
   pointInstalation = 0;
   pointMeter = 0;
+  pointRepetidores = 0;
   hiddenMeter = false;
   idOrder;
 
   constructor(
     private dataApi: DataApiService,
     private authService: AuthService,
-    private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private Location: Location,
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +41,7 @@ export class EditOrdersComponent implements OnInit {
         this.orders.point = 0.0;
         this.changeTypeInstalation();
         this.changeMeter();
+        this.cambioRepetidores();
       },
     });
   }
@@ -46,35 +51,38 @@ export class EditOrdersComponent implements OnInit {
       this.orders.typeInstalation === 'MM_NUEVA_INTERIOR' ||
       this.orders.typeInstalation === 'MM_NEBA_AUTOINST_INT'
     ) {
-      this.pointInstalation = 1.95;
+      this.pointInstalation = PuntosMasMovil.NUEVA_INTERIOR;
       this.hiddenMeter = true;
     } else if (
       this.orders.typeInstalation === 'MM_NUEVA_EXTERIOR' ||
       this.orders.typeInstalation === 'MM_NEBA_AUTOINST_EXT'
     ) {
-      this.pointInstalation = 2.18;
+      this.pointInstalation = PuntosMasMovil.NUEVA_EXTERIOR;
       this.hiddenMeter = true;
     } else if (this.orders.typeInstalation === 'MM_REUTILIZADA') {
-      this.pointInstalation = 1.33;
+      this.pointInstalation = PuntosMasMovil.REUTILIZADA;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation === 'MM_NEBA') {
-      this.pointInstalation = 1.1;
+      this.pointInstalation = PuntosMasMovil.NEBA;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation === 'MM_AVERIA_FESTIVO') {
-      this.pointInstalation = 1.05;
+      this.pointInstalation = PuntosMasMovil.AVERIA_FESTIVO;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation === 'MM_AVERIA') {
-      this.pointInstalation = 1;
+      this.pointInstalation = PuntosMasMovil.AVERIA;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation === 'MM_AGILETV') {
-      this.pointInstalation = 0.23;
+      this.pointInstalation = PuntosMasMovil.AGILETV;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation === 'MM_GUARDIA_VALL/PAL') {
-      this.pointInstalation = 0.0;
+      this.pointInstalation = PuntosMasMovil.GUARDIA_VALL_PAL;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation === 'MM_RECLAMACION') {
-      this.pointInstalation = 0.97;
+      this.pointInstalation = PuntosMasMovil.RECLAMACION;
       this.hiddenMeter = false;
+    } else if (this.orders.typeInstalation === 'MM_INSTALACION_POSTES') {
+      this.pointInstalation = PuntosMasMovil.MM_INSTALACION_POSTES;
+      this.hiddenMeter = true;
     }
 
     this.suma();
@@ -100,21 +108,30 @@ export class EditOrdersComponent implements OnInit {
     this.suma();
   }
 
+  cambioRepetidores(): void{
+    if (this.orders.repetidores > 0) {
+      this.pointRepetidores = this.orders.repetidores * PuntosMasMovil.REPETIDORES;
+      this.suma();
+    } else {
+      this.pointRepetidores = 0;
+      this.suma();
+    }
+  }
+
   suma(): void {
     if (this.hiddenMeter) {
       this.orders.point = parseFloat(
-        (this.pointMeter + this.pointInstalation).toFixed(2)
+        (this.pointMeter + this.pointInstalation + this.pointRepetidores).toFixed(2)
       );
     } else {
-      this.orders.point = this.pointInstalation;
+      this.orders.point = parseFloat((this.pointInstalation + this.pointRepetidores).toFixed(2));
     }
   }
 
   postApiData(order: OrderInterfaces): void {
     this.dataApi.updatedOrder(this.orders).subscribe({
       next: (res) => {
-        console.log('enviado');
-        this.router.navigate(['/orders/view']);
+        this.Location.back();
       },
     });
   }
@@ -125,6 +142,7 @@ export class EditOrdersComponent implements OnInit {
   }
 
   exit(): void {
-    this.router.navigate(['/orders/view']);
+    this.Location.back();
   }
+
 }

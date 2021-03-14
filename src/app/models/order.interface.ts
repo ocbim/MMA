@@ -13,6 +13,8 @@ export interface OrderInterfaces {
 
   point?: number;
 
+  repetidores ?: number;
+
   description?: string;
 
   dateInstalation?: string;

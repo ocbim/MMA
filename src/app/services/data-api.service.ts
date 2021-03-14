@@ -50,7 +50,6 @@ export class DataApiService {
         ? ''
         : this.authService.getCurrentUser().email;
     const urlApiDate = `https://apimma.herokuapp.com/api/orders?filter={ "where": {"userid": "${userid}", "dateInstalation": { "between": ["${this.date.fechaISO}", "${this.date.fechaISOOneDay}"] } } }`;
-    console.log(`este es el id de ususario ${userid}`)
     return this.http.get<OrderInterfaces>(urlApiDate).pipe(map((data) => data));
   }
 

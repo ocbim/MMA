@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataApiService } from 'src/app/services/data-api.service';
 import { DateService } from 'src/app/services/date.service';
 import { OrderInterfaces } from 'src/app/models/order.interface';
@@ -28,7 +28,7 @@ import {
   ],
   styleUrls: ['./monthview.component.scss'],
 })
-export class MonthviewComponent implements OnInit, OnDestroy {
+export class MonthviewComponent implements OnInit {
   constructor(
     private dataApi: DataApiService,
     private dateService: DateService
@@ -42,6 +42,8 @@ export class MonthviewComponent implements OnInit, OnDestroy {
     'typeInstalation',
     'point',
     'dateInstalation',
+    'eliminar',
+    'editar',
   ];
   expandedElement: OrderInterfaces | null;
   totalPoint = 0.0;
@@ -55,6 +57,7 @@ export class MonthviewComponent implements OnInit, OnDestroy {
    * el cambio de fecha que hacemos en el monthNavBar
    */
   ngOnInit(): void {
+    this.obtenerOrdenesLocalStorage();
     this.dateService.fechaMonth.subscribe({
       next: (res) => {
         this.clear();
@@ -77,13 +80,16 @@ export class MonthviewComponent implements OnInit, OnDestroy {
     this.dataApi.getOrdersMonth(startDate, endDate).subscribe({
       next: (res) => {
         this.dataSource = new MatTableDataSource<OrderInterfaces>(res);
+
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.totalPoint = res
-          .map((r) => r.point)
-          .reduce((acc, value) => acc + value, 0);
+
         let numeroLista = 1;
         this.dataSource.data.map((r) => (r.No = numeroLista++));
+
+        this.calcularTotalPoint();
+
+        this.guardarOrdenesEnLocalStorage();
       },
       error: (err) => {
         console.log(err);
@@ -110,7 +116,29 @@ export class MonthviewComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource<OrderInterfaces>(undefined);
   }
 
-  ngOnDestroy() {
-    this.dateService.fechaMonth.unsubscribe();
+  obtenerOrdenesLocalStorage(): void {
+    const dataSourceString = JSON.parse(localStorage.getItem('dataSource'));
+    this.dataSource = new MatTableDataSource<OrderInterfaces>(dataSourceString);
+    this.calcularTotalPoint();
+  }
+
+  calcularTotalPoint(): void {
+    this.totalPoint = this.dataSource.data
+      .map((r) => r.point)
+      .reduce((acc, value) => acc + value, 0);
+    this.dataSource._updateChangeSubscription();
+  }
+
+  guardarOrdenesEnLocalStorage(): void {
+    const dataSourceString = JSON.stringify(this.dataSource.data);
+    localStorage.setItem('dataSource', dataSourceString);
+  }
+
+  eliminarOrden(idOrden, orden): void {
+    this.dataApi.deleteOrder(idOrden).subscribe();
+    const indice = orden.No - 1;
+    this.dataSource.data.splice(indice, 1);
+    this.calcularTotalPoint();
+    this.guardarOrdenesEnLocalStorage();
   }
 }

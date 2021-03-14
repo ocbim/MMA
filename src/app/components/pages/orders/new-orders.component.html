@@ -24,10 +24,11 @@
               <option value="MM_NEBA_AUTOINST_INT">NEBA_AUTOINST_INT</option>
               <option value="MM_NEBA_AUTOINST_EXT">NEBA_AUTOINST_EXT</option>
               <option value="MM_REUTILIZADA">REUTILIZADA</option>
+              <option value="MM_NEBA">NEBA</option>
+              <option value="MM_INSTALACION_POSTES">INSTALACION_POSTES</option>
               <option value="MM_AGILETV">MM_AGILETV</option>
               <option value="MM_AVERIA">AVERIA</option>
               <option value="MM_AVERIA_FESTIVO">AVERIA_FESTIVO</option>
-              <option value="MM_NEBA">NEBA</option>
               <option value="MM_RECLAMACION">RECLAMACION</option>
               <option value="MM_GUARDIA_VALL/PAL">GUARDIA_VALL/PAL</option>
             </optgroup>
@@ -55,6 +56,11 @@
         <!-- DATE the instalation -->
         <div class="form-group">
           <input type="date" name="dateInstalation" value="" class="form-control" [(ngModel)]="orders.dateInstalation">
+        </div>
+
+         <!-- # Numero de Repetidores-->
+         <div class="form-group">
+          <input type="number"  name="repetidores" class="form-control text-uppercase" placeholder="Numero de repetidores" [(ngModel)]="orders.repetidores" (change)="cambioRepetidores()">
         </div>
 
         <!-- Description Orden-->
