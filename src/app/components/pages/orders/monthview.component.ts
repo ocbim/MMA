@@ -123,10 +123,12 @@ export class MonthviewComponent implements OnInit {
   }
 
   calcularTotalPoint(): void {
-    this.totalPoint = this.dataSource.data
+    if (this.dataSource.data) {
+      this.totalPoint = this.dataSource.data
       .map((r) => r.point)
       .reduce((acc, value) => acc + value, 0);
-    this.dataSource._updateChangeSubscription();
+      this.dataSource._updateChangeSubscription();
+    }
   }
 
   guardarOrdenesEnLocalStorage(): void {

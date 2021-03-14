@@ -30,12 +30,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableExporterModule } from 'mat-table-exporter';
-
-
 
 @NgModule({
   declarations: [
@@ -72,7 +70,7 @@ import { MatTableExporterModule } from 'mat-table-exporter';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTableExporterModule
+    MatTableExporterModule,
   ],
   providers: [
     AuthService,
