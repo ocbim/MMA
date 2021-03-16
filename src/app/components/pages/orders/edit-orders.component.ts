@@ -81,8 +81,14 @@ export class EditOrdersComponent implements OnInit {
       this.pointInstalation = PuntosMasMovil.RECLAMACION;
       this.hiddenMeter = false;
     } else if (this.orders.typeInstalation === 'MM_INSTALACION_POSTES') {
-      this.pointInstalation = PuntosMasMovil.MM_INSTALACION_POSTES;
+      this.pointInstalation = PuntosMasMovil.INSTALACION_POSTES;
       this.hiddenMeter = true;
+    } else if (this.orders.typeInstalation === 'MM_REUTILIZADA_POSTES') {
+      this.pointInstalation = PuntosMasMovil.REUTILIZADA_POSTES;
+      this.hiddenMeter = false;
+    } else if ( this.orders.typeInstalation === 'MM_REUTILIZADA_ADAPTADORES') {
+      this.pointInstalation = PuntosMasMovil.REUTILIZADA_ADAPTADORES;
+      this.hiddenMeter = false;
     }
 
     this.suma();

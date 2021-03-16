@@ -36,7 +36,9 @@
               item.typeInstalation == 'MM_AVERIA' ||
               item.typeInstalation == 'MM_NEBA' ||
               item.typeInstalation == 'MM_AVERIA_FESTIVO' ||
-              item.typeInstalation == 'MM_REUTILIZADA'
+              item.typeInstalation == 'MM_REUTILIZADA' ||
+              item.typeInstalation === 'MM_REUTILIZADA_POSTES' ||
+              item.typeInstalation === 'MM_AGILETV'
                 ? true
                 : false
             "
@@ -49,7 +51,7 @@
         </div>
 
         <div class="d-flex flex-row-reverse text-muted">
-          <span>Nº de Repetidores {{item.repetidores > 0 ? item.repetidores : 0}} </span>
+          <span [class.d-none]="item.repetidores == undefined || item.repetidores <= 0 ? true : false "> Nº de Repetidores {{ item.repetidores }} </span>
         </div>
 
         <span class="border d-flex m-2 p-1 text-justify">

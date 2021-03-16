@@ -62,5 +62,6 @@ export class MonthNavbarComponent implements OnInit {
     const startDate = moment(date).startOf('month').toISOString();
     const endDate = moment(date).endOf('month').toISOString();
     this.dateService.fechaMonth.next({ startDate, endDate });
+    localStorage.setItem('ultimoMesVisto', JSON.stringify([startDate, endDate]));
   }
 }
