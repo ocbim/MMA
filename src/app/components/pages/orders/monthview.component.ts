@@ -57,7 +57,7 @@ export class MonthviewComponent implements OnInit {
    * el cambio de fecha que hacemos en el monthNavBar
    */
   ngOnInit(): void {
-    this.obtenerOrdenesLocalStorage();
+    this.obtenerFechasLocalStorage();
     this.dateService.fechaMonth.subscribe({
       next: (res) => {
         this.clear();
@@ -89,7 +89,6 @@ export class MonthviewComponent implements OnInit {
 
         this.calcularTotalPoint();
 
-        this.guardarOrdenesEnLocalStorage();
       },
       error: (err) => {
         console.log(err);
@@ -116,10 +115,9 @@ export class MonthviewComponent implements OnInit {
     this.dataSource = new MatTableDataSource<OrderInterfaces>(undefined);
   }
 
-  obtenerOrdenesLocalStorage(): void {
-    const dataSourceString = JSON.parse(localStorage.getItem('dataSource'));
-    this.dataSource = new MatTableDataSource<OrderInterfaces>(dataSourceString);
-    this.calcularTotalPoint();
+  async obtenerFechasLocalStorage(): Promise<any> {
+    const fechaLocalStorage = await  JSON.parse(localStorage.getItem('ultimoMesVisto'));
+    this.dateService.fechaMonth.next(fechaLocalStorage);
   }
 
   calcularTotalPoint(): void {
@@ -131,16 +129,11 @@ export class MonthviewComponent implements OnInit {
     }
   }
 
-  guardarOrdenesEnLocalStorage(): void {
-    const dataSourceString = JSON.stringify(this.dataSource.data);
-    localStorage.setItem('dataSource', dataSourceString);
-  }
 
   eliminarOrden(idOrden, orden): void {
     this.dataApi.deleteOrder(idOrden).subscribe();
     const indice = orden.No - 1;
     this.dataSource.data.splice(indice, 1);
     this.calcularTotalPoint();
-    this.guardarOrdenesEnLocalStorage();
   }
 }

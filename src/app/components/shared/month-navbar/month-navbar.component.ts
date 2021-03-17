@@ -10,12 +10,14 @@ import { DateService } from 'src/app/services/date.service';
 export class MonthNavbarComponent implements OnInit {
   dateStartForMonth = [];
   ano = moment().get('year'); /* extraemos el año en el que estamos ejemplo '2021' */
+  numeroMes: string; // Numero del mes que tenemos cargado
   constructor(private dateService: DateService) {}
   /**
    * @description Inicializamos con un for que guardara una lista con las
    * fechas enero,Febrero, Marzo, Abril ect...
    */
   ngOnInit(): void {
+    this.obtenerFechaLocalStorage();
     this.creamosListaMeses();
   }
 
@@ -62,6 +64,12 @@ export class MonthNavbarComponent implements OnInit {
     const startDate = moment(date).startOf('month').toISOString();
     const endDate = moment(date).endOf('month').toISOString();
     this.dateService.fechaMonth.next({ startDate, endDate });
-    localStorage.setItem('ultimoMesVisto', JSON.stringify([startDate, endDate]));
+    localStorage.setItem('ultimoMesVisto', JSON.stringify({startDate, endDate}));
+    this.obtenerFechaLocalStorage();
+  }
+
+  async obtenerFechaLocalStorage(): Promise<any> {
+    const fechaLocalStorage = await JSON.parse(localStorage.getItem('ultimoMesVisto'));
+    this.numeroMes = fechaLocalStorage.startDate;
   }
 }
